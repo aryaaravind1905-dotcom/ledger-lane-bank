@@ -63,7 +63,7 @@ export default function AutoPay() {
       ...form, to_ifsc: form.to_ifsc.toUpperCase(), amount: parseFloat(form.amount),
     });
     if (!parsed.success) { toast.error(parsed.error.issues[0].message); return; }
-    const { error } = await supabase.from("autopay_configs").insert({
+    const { error } = await supabase.from("autopay_configs").insert([{
       user_id: user!.id,
       from_account_id: account.id,
       nickname: parsed.data.nickname,
@@ -72,7 +72,7 @@ export default function AutoPay() {
       amount_paise: rupeesToPaise(parsed.data.amount),
       frequency: parsed.data.frequency,
       next_run_at: new Date(parsed.data.start_date).toISOString(),
-    });
+    }]);
     if (error) { toast.error(error.message); return; }
     toast.success("AutoPay scheduled");
     setForm({ ...form, nickname: "", to_account_number: "", amount: "" });
