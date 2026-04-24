@@ -38,7 +38,13 @@ export default function Beneficiaries() {
     e.preventDefault();
     const parsed = schema.safeParse({ ...form, ifsc: form.ifsc.toUpperCase() });
     if (!parsed.success) { toast.error(parsed.error.issues[0].message); return; }
-    const { error } = await supabase.from("beneficiaries").insert([{ ...parsed.data, user_id: user!.id }]);
+    const { error } = await supabase.from("beneficiaries").insert([{
+      user_id: user!.id,
+      nickname: parsed.data.nickname,
+      holder_name: parsed.data.holder_name,
+      account_number: parsed.data.account_number,
+      ifsc: parsed.data.ifsc,
+    }]);
     if (error) { toast.error(error.message); return; }
     toast.success("Beneficiary added");
     setForm({ nickname: "", holder_name: "", account_number: "", ifsc: "LOVB0000001" });
