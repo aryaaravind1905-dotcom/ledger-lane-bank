@@ -467,6 +467,24 @@ export type Database = {
     Functions: {
       _system_account: { Args: { p_kind: string }; Returns: string }
       account_balance_paise: { Args: { p_account: string }; Returns: number }
+      apply_loan: {
+        Args: {
+          p_account: string
+          p_credit_score: number
+          p_monthly_income_paise: number
+          p_principal_paise: number
+          p_tenure_months: number
+        }
+        Returns: Json
+      }
+      create_fd: {
+        Args: {
+          p_account: string
+          p_principal_paise: number
+          p_tenure_months: number
+        }
+        Returns: Json
+      }
       execute_transfer: {
         Args: {
           p_amount_paise: number
@@ -479,7 +497,10 @@ export type Database = {
         }
         Returns: Json
       }
+      repay_emi: { Args: { p_emi: string }; Returns: Json }
       run_due_autopays: { Args: never; Returns: number }
+      run_due_emis: { Args: never; Returns: number }
+      run_fd_maturities: { Args: never; Returns: number }
       set_card_pin: { Args: { p_card: string; p_pin: string }; Returns: Json }
       unblock_card: {
         Args: { p_card: string; p_new_pin: string; p_otp: string }
@@ -489,6 +510,7 @@ export type Database = {
         Args: { p_card: string; p_pin: string }
         Returns: Json
       }
+      withdraw_fd_premature: { Args: { p_fd: string }; Returns: Json }
     }
     Enums: {
       account_status: "active" | "frozen" | "closed"
