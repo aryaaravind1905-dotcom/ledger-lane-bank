@@ -313,6 +313,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      _system_account: { Args: { p_kind: string }; Returns: string }
       account_balance_paise: { Args: { p_account: string }; Returns: number }
       execute_transfer: {
         Args: {
