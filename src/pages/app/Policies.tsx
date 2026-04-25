@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Wallet, ArrowLeftRight, Repeat2, CreditCard, ShieldCheck } from "lucide-react";
+import { Wallet, ArrowLeftRight, Repeat2, CreditCard, ShieldCheck, Banknote, PiggyBank } from "lucide-react";
 
 const sections = [
   {
@@ -44,6 +44,31 @@ const sections = [
     ],
   },
   {
+    icon: Banknote,
+    title: "Loan rules",
+    rules: [
+      { k: "Eligibility", v: "Credit score > 600 and debt-to-income ratio < 40%" },
+      { k: "Tenure range", v: "3 to 60 months" },
+      { k: "Interest by risk", v: "Low (≥750) 8% · Medium (680–749) 12% · High (<680) 18%" },
+      { k: "EMI formula", v: "Standard amortization (P · r · (1+r)ⁿ / ((1+r)ⁿ − 1))" },
+      { k: "Disbursement", v: "Instant credit to your savings account on approval" },
+      { k: "Late fee", v: "₹500 or 2% of EMI — whichever is higher" },
+      { k: "Default", v: "3 missed EMIs → loan marked defaulted" },
+      { k: "Auto-debit", v: "Daily background job retries due EMIs" },
+    ],
+  },
+  {
+    icon: PiggyBank,
+    title: "Fixed Deposit rules",
+    rules: [
+      { k: "Minimum amount", v: "₹5,000" },
+      { k: "Interest rates", v: "6 mo → 5.00% · 12 mo → 6.50% · 24+ mo → 7.00%" },
+      { k: "Maturity payout", v: "Auto-credited on the maturity date" },
+      { k: "Premature withdrawal", v: "Interest reduced by 1%; no interest if held < 3 months" },
+      { k: "Funds lock-in", v: "Locked in bank FD pool via double-entry ledger" },
+    ],
+  },
+  {
     icon: ShieldCheck,
     title: "Security",
     rules: [
@@ -84,7 +109,7 @@ export default function Policies() {
       ))}
 
       <p className="text-xs text-muted-foreground border-t border-border pt-6">
-        Loans, Fixed Deposits, and full QR scanning will be enabled in the next phase.
+        All policies above are enforced server-side in Postgres functions and cron jobs — they cannot be bypassed from the client.
       </p>
     </div>
   );

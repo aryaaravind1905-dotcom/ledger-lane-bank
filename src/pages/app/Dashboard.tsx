@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Send, Repeat2, CreditCard, QrCode } from "lucide-react";
+import { ArrowRight, Send, Banknote, PiggyBank, CreditCard } from "lucide-react";
 import { useAccounts, useBalance, useTransactions, usePrimaryAccount } from "@/hooks/useBanking";
 import { formatINR, formatAccountNumber } from "@/lib/format";
 import TxnRow from "@/components/TxnRow";
@@ -49,8 +49,8 @@ export default function Dashboard() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-4">
             {[
               { to: "/app/payments", icon: Send, label: "Send" },
-              { to: "/app/payments?tab=qr", icon: QrCode, label: "Scan QR" },
-              { to: "/app/autopay", icon: Repeat2, label: "AutoPay" },
+              { to: "/app/loans", icon: Banknote, label: "Apply loan" },
+              { to: "/app/fd", icon: PiggyBank, label: "Create FD" },
               { to: "/app/card", icon: CreditCard, label: "Card" },
             ].map(({ to, icon: I, label }) => (
               <Link key={label} to={to} className="bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors rounded-md py-3 flex flex-col items-center gap-1.5 text-sm">
