@@ -12,6 +12,8 @@ import Payments from "./pages/app/Payments";
 import Beneficiaries from "./pages/app/Beneficiaries";
 import AutoPay from "./pages/app/AutoPay";
 import CardPage from "./pages/app/CardPage";
+import Loans from "./pages/app/Loans";
+import FixedDeposits from "./pages/app/FixedDeposits";
 import Policies from "./pages/app/Policies";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -33,6 +35,8 @@ const App = () => (
               <Route path="beneficiaries" element={<Beneficiaries />} />
               <Route path="autopay" element={<AutoPay />} />
               <Route path="card" element={<CardPage />} />
+              <Route path="loans" element={<Loans />} />
+              <Route path="fd" element={<FixedDeposits />} />
               <Route path="policies" element={<Policies />} />
             </Route>
             <Route path="*" element={<NotFound />} />
