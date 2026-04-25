@@ -189,6 +189,98 @@ export type Database = {
           },
         ]
       }
+      emis: {
+        Row: {
+          amount_paise: number
+          due_date: string
+          id: string
+          installment_no: number
+          late_fee_paise: number
+          loan_id: string
+          paid_at: string | null
+          status: Database["public"]["Enums"]["emi_status"]
+          transaction_id: string | null
+        }
+        Insert: {
+          amount_paise: number
+          due_date: string
+          id?: string
+          installment_no: number
+          late_fee_paise?: number
+          loan_id: string
+          paid_at?: string | null
+          status?: Database["public"]["Enums"]["emi_status"]
+          transaction_id?: string | null
+        }
+        Update: {
+          amount_paise?: number
+          due_date?: string
+          id?: string
+          installment_no?: number
+          late_fee_paise?: number
+          loan_id?: string
+          paid_at?: string | null
+          status?: Database["public"]["Enums"]["emi_status"]
+          transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emis_loan_id_fkey"
+            columns: ["loan_id"]
+            isOneToOne: false
+            referencedRelation: "loans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fixed_deposits: {
+        Row: {
+          account_id: string
+          created_at: string
+          id: string
+          interest_rate_bps: number
+          matured_at: string | null
+          maturity_date: string
+          payout_paise: number | null
+          principal_paise: number
+          start_date: string
+          status: Database["public"]["Enums"]["fd_status"]
+          tenure_months: number
+          user_id: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          id?: string
+          interest_rate_bps: number
+          matured_at?: string | null
+          maturity_date: string
+          payout_paise?: number | null
+          principal_paise: number
+          start_date?: string
+          status?: Database["public"]["Enums"]["fd_status"]
+          tenure_months: number
+          user_id: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          id?: string
+          interest_rate_bps?: number
+          matured_at?: string | null
+          maturity_date?: string
+          payout_paise?: number | null
+          principal_paise?: number
+          start_date?: string
+          status?: Database["public"]["Enums"]["fd_status"]
+          tenure_months?: number
+          user_id?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: []
+      }
       ledger_entries: {
         Row: {
           account_id: string
@@ -223,6 +315,66 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      loans: {
+        Row: {
+          account_id: string
+          applied_at: string
+          approved_at: string | null
+          closed_at: string | null
+          credit_score: number
+          disbursed_at: string | null
+          emi_paise: number | null
+          id: string
+          interest_rate_bps: number | null
+          missed_emi_count: number
+          monthly_income_paise: number
+          principal_paise: number
+          rejection_reason: string | null
+          risk: Database["public"]["Enums"]["risk_band"] | null
+          status: Database["public"]["Enums"]["loan_status"]
+          tenure_months: number
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          applied_at?: string
+          approved_at?: string | null
+          closed_at?: string | null
+          credit_score: number
+          disbursed_at?: string | null
+          emi_paise?: number | null
+          id?: string
+          interest_rate_bps?: number | null
+          missed_emi_count?: number
+          monthly_income_paise: number
+          principal_paise: number
+          rejection_reason?: string | null
+          risk?: Database["public"]["Enums"]["risk_band"] | null
+          status?: Database["public"]["Enums"]["loan_status"]
+          tenure_months: number
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          applied_at?: string
+          approved_at?: string | null
+          closed_at?: string | null
+          credit_score?: number
+          disbursed_at?: string | null
+          emi_paise?: number | null
+          id?: string
+          interest_rate_bps?: number | null
+          missed_emi_count?: number
+          monthly_income_paise?: number
+          principal_paise?: number
+          rejection_reason?: string | null
+          risk?: Database["public"]["Enums"]["risk_band"] | null
+          status?: Database["public"]["Enums"]["loan_status"]
+          tenure_months?: number
+          user_id?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -344,7 +496,17 @@ export type Database = {
       autopay_freq: "daily" | "weekly" | "monthly"
       autopay_status: "active" | "paused" | "disabled"
       card_status: "active" | "blocked"
+      emi_status: "scheduled" | "paid" | "late" | "missed"
       entry_direction: "debit" | "credit"
+      fd_status: "active" | "matured" | "withdrawn"
+      loan_status:
+        | "applied"
+        | "approved"
+        | "rejected"
+        | "active"
+        | "closed"
+        | "defaulted"
+      risk_band: "low" | "medium" | "high"
       txn_kind:
         | "transfer"
         | "autopay"
@@ -487,7 +649,18 @@ export const Constants = {
       autopay_freq: ["daily", "weekly", "monthly"],
       autopay_status: ["active", "paused", "disabled"],
       card_status: ["active", "blocked"],
+      emi_status: ["scheduled", "paid", "late", "missed"],
       entry_direction: ["debit", "credit"],
+      fd_status: ["active", "matured", "withdrawn"],
+      loan_status: [
+        "applied",
+        "approved",
+        "rejected",
+        "active",
+        "closed",
+        "defaulted",
+      ],
+      risk_band: ["low", "medium", "high"],
       txn_kind: [
         "transfer",
         "autopay",
