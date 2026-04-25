@@ -15,6 +15,12 @@ import CardPage from "./pages/app/CardPage";
 import Loans from "./pages/app/Loans";
 import FixedDeposits from "./pages/app/FixedDeposits";
 import Policies from "./pages/app/Policies";
+import SupportList from "./pages/app/SupportList";
+import SupportTicket from "./pages/app/SupportTicket";
+import StaffLogin from "./pages/staff/StaffLogin";
+import StaffLayout from "./pages/staff/StaffLayout";
+import StaffTickets from "./pages/staff/StaffTickets";
+import StaffTicketDetail from "./pages/staff/StaffTicketDetail";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -38,6 +44,13 @@ const App = () => (
               <Route path="loans" element={<Loans />} />
               <Route path="fd" element={<FixedDeposits />} />
               <Route path="policies" element={<Policies />} />
+              <Route path="support" element={<SupportList />} />
+              <Route path="support/:id" element={<SupportTicket />} />
+            </Route>
+            <Route path="/staff" element={<StaffLogin />} />
+            <Route path="/staff" element={<StaffLayout />}>
+              <Route path="tickets" element={<StaffTickets />} />
+              <Route path="tickets/:id" element={<StaffTicketDetail />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

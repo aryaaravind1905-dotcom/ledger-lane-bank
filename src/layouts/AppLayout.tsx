@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
-import { LayoutDashboard, ArrowLeftRight, Repeat2, CreditCard, ScrollText, LogOut, Users, Banknote, PiggyBank } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, Repeat2, CreditCard, ScrollText, LogOut, Users, Banknote, PiggyBank, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -12,6 +12,7 @@ const nav = [
   { to: "/app/loans", icon: Banknote, label: "Loans" },
   { to: "/app/fd", icon: PiggyBank, label: "Fixed Deposits" },
   { to: "/app/card", icon: CreditCard, label: "Card" },
+  { to: "/app/support", icon: MessageCircle, label: "Support" },
   { to: "/app/policies", icon: ScrollText, label: "Policies" },
 ];
 
