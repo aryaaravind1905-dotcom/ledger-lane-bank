@@ -344,7 +344,15 @@ export type Database = {
       autopay_status: "active" | "paused" | "disabled"
       card_status: "active" | "blocked"
       entry_direction: "debit" | "credit"
-      txn_kind: "transfer" | "autopay" | "reversal" | "system"
+      txn_kind:
+        | "transfer"
+        | "autopay"
+        | "reversal"
+        | "system"
+        | "loan_disbursement"
+        | "loan_repayment"
+        | "fd_lock"
+        | "fd_payout"
       txn_status: "pending" | "success" | "failed"
     }
     CompositeTypes: {
@@ -479,7 +487,16 @@ export const Constants = {
       autopay_status: ["active", "paused", "disabled"],
       card_status: ["active", "blocked"],
       entry_direction: ["debit", "credit"],
-      txn_kind: ["transfer", "autopay", "reversal", "system"],
+      txn_kind: [
+        "transfer",
+        "autopay",
+        "reversal",
+        "system",
+        "loan_disbursement",
+        "loan_repayment",
+        "fd_lock",
+        "fd_payout",
+      ],
       txn_status: ["pending", "success", "failed"],
     },
   },
