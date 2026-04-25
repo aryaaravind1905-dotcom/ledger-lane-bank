@@ -400,6 +400,74 @@ export type Database = {
         }
         Relationships: []
       }
+      support_tickets: {
+        Row: {
+          classification: Database["public"]["Enums"]["ticket_classification"]
+          created_at: string
+          id: string
+          resolved_at: string | null
+          status: Database["public"]["Enums"]["ticket_status"]
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          classification?: Database["public"]["Enums"]["ticket_classification"]
+          created_at?: string
+          id?: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["ticket_status"]
+          subject: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          classification?: Database["public"]["Enums"]["ticket_classification"]
+          created_at?: string
+          id?: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["ticket_status"]
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ticket_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          sender: Database["public"]["Enums"]["message_sender"]
+          ticket_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          sender: Database["public"]["Enums"]["message_sender"]
+          ticket_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          sender?: Database["public"]["Enums"]["message_sender"]
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transactions: {
         Row: {
           amount_paise: number
@@ -528,7 +596,18 @@ export type Database = {
         | "active"
         | "closed"
         | "defaulted"
+      message_sender: "user" | "ai" | "staff"
       risk_band: "low" | "medium" | "high"
+      ticket_classification:
+        | "unclassified"
+        | "account"
+        | "payments"
+        | "cards"
+        | "loans"
+        | "fd"
+        | "autopay"
+        | "other"
+      ticket_status: "open" | "escalated" | "resolved"
       txn_kind:
         | "transfer"
         | "autopay"
@@ -682,7 +761,19 @@ export const Constants = {
         "closed",
         "defaulted",
       ],
+      message_sender: ["user", "ai", "staff"],
       risk_band: ["low", "medium", "high"],
+      ticket_classification: [
+        "unclassified",
+        "account",
+        "payments",
+        "cards",
+        "loans",
+        "fd",
+        "autopay",
+        "other",
+      ],
+      ticket_status: ["open", "escalated", "resolved"],
       txn_kind: [
         "transfer",
         "autopay",
