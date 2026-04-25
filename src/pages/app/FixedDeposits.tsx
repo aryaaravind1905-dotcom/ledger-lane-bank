@@ -23,7 +23,7 @@ const TENURE_OPTIONS = [
 
 const statusColor: Record<string, string> = {
   active: "bg-primary/10 text-primary border-primary/20",
-  matured: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  matured: "bg-success/10 text-success border-success/20",
   withdrawn: "bg-muted text-muted-foreground border-border",
 };
 
@@ -107,7 +107,7 @@ export default function FixedDeposits() {
         </Card>
         <Card className="p-5">
           <div className="text-xs uppercase tracking-widest text-muted-foreground">Projected at maturity</div>
-          <div className="stat-number text-3xl mt-2 text-emerald-700">{formatINR(projected)}</div>
+          <div className="stat-number text-3xl mt-2 text-success">{formatINR(projected)}</div>
         </Card>
       </div>
 
@@ -141,7 +141,7 @@ export default function FixedDeposits() {
                     {expectedPayout != null && (
                       <div className="text-xs mt-2">
                         <span className="text-muted-foreground">{isActive ? "At maturity:" : "Paid out:"} </span>
-                        <span className="font-medium text-emerald-700">{formatINR(expectedPayout)}</span>
+                        <span className="font-medium text-success">{formatINR(expectedPayout)}</span>
                       </div>
                     )}
                   </div>
@@ -184,7 +184,7 @@ export default function FixedDeposits() {
             <div className="bg-muted/40 rounded-md p-3 text-xs space-y-1">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Estimated payout at maturity</span>
-                <span className="font-medium text-emerald-700">
+                <span className="font-medium text-success">
                   {formatINR(projectedPayout(rupeesToPaise(parseFloat(amount || "0")), parseInt(tenure)))}
                 </span>
               </div>

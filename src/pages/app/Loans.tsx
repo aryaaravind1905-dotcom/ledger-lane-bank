@@ -14,17 +14,17 @@ import { formatINR, rupeesToPaise } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const riskColor: Record<string, string> = {
-  low: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  medium: "bg-amber-100 text-amber-800 border-amber-200",
-  high: "bg-rose-100 text-rose-800 border-rose-200",
+  low: "bg-success/10 text-success border-success/20",
+  medium: "bg-warning/10 text-warning border-warning/20",
+  high: "bg-destructive/10 text-destructive border-destructive/20",
 };
 
 const statusColor: Record<string, string> = {
   active: "bg-primary/10 text-primary border-primary/20",
   closed: "bg-muted text-muted-foreground border-border",
-  rejected: "bg-rose-100 text-rose-800 border-rose-200",
-  defaulted: "bg-rose-100 text-rose-800 border-rose-200",
-  applied: "bg-amber-100 text-amber-800 border-amber-200",
+  rejected: "bg-destructive/10 text-destructive border-destructive/20",
+  defaulted: "bg-destructive/10 text-destructive border-destructive/20",
+  applied: "bg-warning/10 text-warning border-warning/20",
 };
 
 export default function Loans() {
@@ -136,7 +136,7 @@ export default function Loans() {
                     {l.emi_paise != null && ` · EMI ${formatINR(l.emi_paise)}`}
                   </div>
                   {l.status === "rejected" && (
-                    <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
+                    <div className="text-xs text-destructive mt-2 flex items-center gap-1">
                       <AlertTriangle className="w-3 h-3" />
                       {l.rejection_reason === "credit_score_below_threshold"
                         ? "Credit score below 600"
@@ -144,7 +144,7 @@ export default function Loans() {
                     </div>
                   )}
                   {l.status === "defaulted" && (
-                    <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
+                    <div className="text-xs text-destructive mt-2 flex items-center gap-1">
                       <AlertTriangle className="w-3 h-3" />
                       Defaulted — {l.missed_emi_count} missed EMIs
                     </div>
@@ -266,18 +266,18 @@ function LoanDetailDialog({ loan, onClose }: { loan: Loan | null; onClose: () =>
                         <td className="px-3 py-2">{e.installment_no}</td>
                         <td className="px-3 py-2">{new Date(e.due_date).toLocaleDateString("en-IN")}</td>
                         <td className="px-3 py-2 text-right font-mono-tabular">{formatINR(e.amount_paise)}</td>
-                        <td className="px-3 py-2 text-right font-mono-tabular text-rose-700">
+                        <td className="px-3 py-2 text-right font-mono-tabular text-destructive">
                           {e.late_fee_paise > 0 ? formatINR(e.late_fee_paise) : "—"}
                         </td>
                         <td className="px-3 py-2 capitalize">
                           {e.status === "paid" && (
-                            <span className="inline-flex items-center gap-1 text-emerald-700">
+                            <span className="inline-flex items-center gap-1 text-success">
                               <CheckCircle2 className="w-3.5 h-3.5" /> Paid
                             </span>
                           )}
                           {e.status === "scheduled" && <span className="text-muted-foreground">Scheduled</span>}
-                          {e.status === "late" && <span className="text-amber-700">Late</span>}
-                          {e.status === "missed" && <span className="text-rose-700">Missed</span>}
+                          {e.status === "late" && <span className="text-warning">Late</span>}
+                          {e.status === "missed" && <span className="text-destructive">Missed</span>}
                         </td>
                         <td className="px-3 py-2 text-right">
                           {e.status !== "paid" && loan.status !== "closed" && (
